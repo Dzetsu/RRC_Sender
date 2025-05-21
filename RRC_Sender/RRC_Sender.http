@@ -1,0 +1,6 @@
+@RRC_Sender_HostAddress = http://localhost:5008
+
+GET {{RRC_Sender_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

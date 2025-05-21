@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "dgSpecHash": "inXF2ltZINs=",
+  "success": true,
+  "projectFilePath": "D:\\IT projects\\programms\\RRC_Sender\\Couriers\\Couriers.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Dzetsu\\.nuget\\packages\\confluent.kafka\\2.9.0\\confluent.kafka.2.9.0.nupkg.sha512",
+    "C:\\Users\\Dzetsu\\.nuget\\packages\\dapper\\2.1.66\\dapper.2.1.66.nupkg.sha512",
+    "C:\\Users\\Dzetsu\\.nuget\\packages\\librdkafka.redist\\2.8.0\\librdkafka.redist.2.8.0.nupkg.sha512",
+    "C:\\Users\\Dzetsu\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\8.0.2\\microsoft.extensions.dependencyinjection.abstractions.8.0.2.nupkg.sha512",
+    "C:\\Users\\Dzetsu\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\8.0.2\\microsoft.extensions.logging.abstractions.8.0.2.nupkg.sha512",
+    "C:\\Users\\Dzetsu\\.nuget\\packages\\npgsql\\9.0.3\\npgsql.9.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}
