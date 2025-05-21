@@ -1,3 +1,0 @@
-﻿<Project>
-  <Import Project="..\build\RRC_Sender.props" />
-</Project>
