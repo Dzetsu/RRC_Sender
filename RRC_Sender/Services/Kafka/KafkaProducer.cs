@@ -2,11 +2,11 @@ using System.Text.Json;
 using Confluent.Kafka;
 using RRC_Sender.Entities;
 
-namespace RRC_Sender.Services.BackGroundServices;
+namespace RRC_Sender.Services.Kafka;
 
 public class KafkaProducer
 {
-    public async Task SendKafkaMessage(Order order)
+    public static async Task SendMessage(Order order)
     {
         var bootstrapServers = "localhost:9092";
 

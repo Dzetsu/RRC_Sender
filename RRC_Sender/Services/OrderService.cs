@@ -4,7 +4,7 @@ using System.Text;
 using Confluent.Kafka;
 using RRC_Sender.Entities;
 using RRC_Sender.Repositories;
-using RRC_Sender.Services.BusinessLogic;
+using static RRC_Sender.Services.TokenGenerator;
 
 namespace RRC_Sender.Services;
 
@@ -21,9 +21,8 @@ public class OrderService(IOrderRepository orderRepository) : IOrderService
         {
             if (amount <= 0)
                 throw new ArgumentException("Amount cannot be negative", nameof(amount));
-
-            TokenGenerator generator = new TokenGenerator();
-            string token = generator.Generate(username, nameItem, amount);
+            
+            string token = Generate();
             await orderRepository.CreateOrder(username, nameItem, amount, token, cancellationToken);
         }
         catch (Exception ex)
@@ -32,3 +31,4 @@ public class OrderService(IOrderRepository orderRepository) : IOrderService
         }
     }
 }
+

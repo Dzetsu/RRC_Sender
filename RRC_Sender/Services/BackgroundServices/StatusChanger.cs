@@ -5,27 +5,26 @@ using Dapper;
 using Microsoft.Extensions.Options;
 using Npgsql;
 using RRC_Sender.Entities;
+using RRC_Sender.Services.Enums;
 
-namespace RRC_Sender.Services.BackGroundServices;
+namespace RRC_Sender.Services.BackgroundServices;
 
-public class ConfirmClass(NpgsqlDataSource dataSource, IOptions<KafkaSettings> kafkaOptions) : BackgroundService
+public class StatusChanger(NpgsqlDataSource dataSource, IOptions<KafkaSetting> kafkaOptions) : BackgroundService
 {
-    private readonly KafkaSettings _kafkaSettings = kafkaOptions.Value;
+    private readonly KafkaSetting _kafkaSetting = kafkaOptions.Value ?? throw new ArgumentNullException(nameof(kafkaOptions));
     
     protected override async Task ExecuteAsync(CancellationToken cancellationToken)
     {
         await using var connection = await dataSource.OpenConnectionAsync(cancellationToken);
         
-        const string updateStatusY = "update items.itemsoutbox set status = 'y' where token = @token";
-        const string updateStatusN = "update items.itemsoutbox set status = 'n' where token = @token";
-        const string deleteInfoOrder = "delete from items.orderitems where token = @token";
+        const string updateStatus = "update items.orders set status = @status where token = @token"; 
         
-        var config = new ConsumerConfig // Попробовал IOption
+        var config = new ConsumerConfig 
         {
-            GroupId = _kafkaSettings.GroupId,
-            BootstrapServers = _kafkaSettings.BootstrapServers,
-            EnableAutoCommit = _kafkaSettings.EnableAutoCommit,
-            AutoOffsetReset = Enum.Parse<AutoOffsetReset>(_kafkaSettings.AutoOffsetReset, true),
+            GroupId = _kafkaSetting.GroupId,
+            BootstrapServers = _kafkaSetting.BootstrapServers,
+            EnableAutoCommit = _kafkaSetting.EnableAutoCommit,
+            AutoOffsetReset = Enum.Parse<AutoOffsetReset>(_kafkaSetting.AutoOffsetReset, true),
         };
         
         using var consumer = new ConsumerBuilder<Ignore, string>(config).Build();
@@ -47,17 +46,13 @@ public class ConfirmClass(NpgsqlDataSource dataSource, IOptions<KafkaSettings> k
                 
                 switch (message.Answer)
                 {
-                    case 'y':
-                        await connection.ExecuteAsync(updateStatusY, new {token = message.Token});
+                    case '1':
+                        await connection.ExecuteAsync(updateStatus, new {status = OrderStatus.Confirmed, token = message.Token});
                         break;
-                    case 'n':
-                        var transaction = await connection.BeginTransactionAsync(cancellationToken);
-                        await connection.ExecuteAsync(updateStatusN, new {token = message.Token}, transaction);
-                        await connection.ExecuteAsync(deleteInfoOrder, new {token = message.Token}, transaction);
-                        await transaction.CommitAsync(cancellationToken);
+                    case '2':
+                        await connection.ExecuteAsync(updateStatus, new {status = OrderStatus.Cancelled, token = message.Token});
                         break;
                 }
-                
             }
             catch (Exception ex)
             {

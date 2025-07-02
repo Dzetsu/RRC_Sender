@@ -9,14 +9,13 @@ namespace RRC_Sender.Controllers;
 public class OrderItemsController(IOrderService orderService) : ControllerBase
 {
     [HttpGet]
-    public Task<IEnumerable<Item>> GetAllItems()
+    public Task<IEnumerable<Item>> GetAll()
     {
         return orderService.GetAll(CancellationToken.None);
     }
 
     [HttpPost]
-    [Route("username")]
-    public Task OrderItems(string username, [FromBody] string nameItem, long amount)
+    public Task CreateOrder([FromQuery] string username, [FromBody] string nameItem, long amount)
     {
         return orderService.CreateOrder(username, nameItem, amount, CancellationToken.None);
     }
