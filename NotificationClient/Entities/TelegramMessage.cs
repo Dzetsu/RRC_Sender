@@ -1,9 +1,9 @@
-namespace Storage.Entities;
+namespace NotificationClient;
 
 public class TelegramMessage
 {
-    public long Id {get;set;}
-    public long Amount { get; set; }
     public string Name { get; set; }
+    public long Amount { get; set; }
+    public long Id { get; set; }
     public bool Status { get; set; }
 }

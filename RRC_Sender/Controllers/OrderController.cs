@@ -6,7 +6,7 @@ namespace RRC_Sender.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class OrderItemsController(IOrderService orderService) : ControllerBase
+public class OrderController(IOrderService orderService) : ControllerBase
 {
     [HttpGet]
     public Task<IEnumerable<Item>> GetAll()

@@ -1,5 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35931.197 d17.13
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RRC_Sender", "RRC_Sender\RRC_Sender.csproj", "{1B7CC34E-275C-4770-86C1-2DAAE08DE29C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{4922CE9C-4592-43F4-AA89-79268FE37887}"
@@ -29,5 +32,13 @@ Global
 		{2BC46477-F093-4F2E-9D91-7F6E782EFC66}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2BC46477-F093-4F2E-9D91-7F6E782EFC66}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2BC46477-F093-4F2E-9D91-7F6E782EFC66}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8386655B-01BE-4DCB-AE86-BC0194BB1E2D}
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
 	EndGlobalSection
 EndGlobal

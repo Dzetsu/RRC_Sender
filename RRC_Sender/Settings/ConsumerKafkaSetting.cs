@@ -1,6 +1,6 @@
-namespace RRC_Sender.Entities;
+namespace RRC_Sender.Settings;
 
-public class KafkaSetting
+public class ConsumerKafkaSetting
 {
     public string GroupId { get; set; }
     public string BootstrapServers { get; set; }

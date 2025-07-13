@@ -28,7 +28,7 @@ public class OrderRepository(NpgsqlDataSource dataSource) : IOrderRepository
 
         if (itemId == 0)
             throw new ArgumentException($"Item with name {nameItem} not found");
-
+        
         var transaction = await connection.BeginTransactionAsync(cancellationToken);
         await connection.ExecuteAsync(insertInfoOutBoxQuery, new {username = username, name = nameItem,  amount, token}, transaction);
         await connection.ExecuteAsync(insertInfoOrderQuery, new {username = username, name = nameItem, amount, token}, transaction);

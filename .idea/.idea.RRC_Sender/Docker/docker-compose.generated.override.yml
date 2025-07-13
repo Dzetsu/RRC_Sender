@@ -1,0 +1,22 @@
+# This is a generated file. Not intended for manual editing.
+version: "3.9"
+services:
+  rrc_sender:
+    build:
+      context: "F:\\IT projects\\programms\\RRC_Sender"
+      dockerfile: "RRC_Sender/Dockerfile"
+      target: "base"
+    command: []
+    entrypoint:
+    - "dotnet"
+    - "/app/bin/Debug/net8.0/RRC_Sender.dll"
+    environment:
+      ASPNETCORE_ENVIRONMENT: "Development"
+      DOTNET_USE_POLLING_FILE_WATCHER: "true"
+    image: "rrc_sender:dev"
+    ports: []
+    volumes:
+    - "C:\\Users\\Dzetsu\\.nuget\\packages:/home/app/.nuget/packages"
+    - "F:\\IT projects\\programms\\RRC_Sender\\RRC_Sender:/app:rw"
+    - "F:\\IT projects\\programms\\RRC_Sender:/src:rw"
+    working_dir: "/app"

@@ -1,10 +1,13 @@
-﻿services:
+﻿version: '3.9'
+
+services:
+  
   broker:
     image: apache/kafka:latest
     hostname: broker
-    container_name: broker
+    container_name: rrc_kafka
     ports:
-      - 9092:9092
+      - "9092:9092"
     environment:
       KAFKA_BROKER_ID: 1
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT,CONTROLLER:PLAINTEXT
@@ -21,3 +24,39 @@
       KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
       KAFKA_LOG_DIRS: /tmp/kraft-combined-logs
       CLUSTER_ID: MkU3OEVBNTcwNTJENDM2Qk
+  rrc_sender:
+    image: rrc_sender
+    build:
+      context: .
+      dockerfile: RRC_Sender/Dockerfile
+      
+  postgres:
+    image: postgres:latest
+    container_name: rrc_postgres
+    hostname: postgres
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_USER=postgres
+    restart: always
+    
+  liquibase:
+    image: liquibase/liquibase
+    volumes:
+      - ./liquibase:/liquibase/changelog
+    depends_on:
+      - postgres
+    command:
+      [
+        "--url=jdbc:postgresql://postgres:5432/postgres",
+        "--username=postgres",
+        "--password=postgres",
+        "--changeLogFile=/liquibase/changelog.xml",
+        "update"
+      ]
+    
+volumes:
+  pg_data:

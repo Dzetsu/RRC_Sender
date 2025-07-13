@@ -6,13 +6,13 @@ using Microsoft.Extensions.Options;
 using Npgsql;
 using RRC_Sender.Entities;
 using RRC_Sender.Services.Enums;
+using RRC_Sender.Settings;
 
 namespace RRC_Sender.Services.BackgroundServices;
 
-public class StatusChanger(NpgsqlDataSource dataSource, IOptions<KafkaSetting> kafkaOptions) : BackgroundService
+public class StatusChanger(NpgsqlDataSource dataSource, IOptions<ConsumerKafkaSetting> kafkaOptions) : BackgroundService
 {
-    private readonly KafkaSetting _kafkaSetting = kafkaOptions.Value ?? throw new ArgumentNullException(nameof(kafkaOptions));
-    
+    private readonly ConsumerKafkaSetting _consumerKafkaSetting = kafkaOptions.Value ?? throw new ArgumentNullException(nameof(kafkaOptions));
     protected override async Task ExecuteAsync(CancellationToken cancellationToken)
     {
         await using var connection = await dataSource.OpenConnectionAsync(cancellationToken);
@@ -21,10 +21,10 @@ public class StatusChanger(NpgsqlDataSource dataSource, IOptions<KafkaSetting> k
         
         var config = new ConsumerConfig 
         {
-            GroupId = _kafkaSetting.GroupId,
-            BootstrapServers = _kafkaSetting.BootstrapServers,
-            EnableAutoCommit = _kafkaSetting.EnableAutoCommit,
-            AutoOffsetReset = Enum.Parse<AutoOffsetReset>(_kafkaSetting.AutoOffsetReset, true),
+            GroupId = _consumerKafkaSetting.GroupId,
+            BootstrapServers = _consumerKafkaSetting.BootstrapServers,
+            EnableAutoCommit = _consumerKafkaSetting.EnableAutoCommit,
+            AutoOffsetReset = Enum.Parse<AutoOffsetReset>(_consumerKafkaSetting.AutoOffsetReset, true)
         };
         
         using var consumer = new ConsumerBuilder<Ignore, string>(config).Build();
