@@ -1,10 +1,10 @@
 using Dapper;
 using Npgsql;
 using RRC_Sender.Entities;
-using RRC_Sender.Services.Enums;
+using RRC_Sender.Enums;
 using RRC_Sender.Services.Kafka;
 
-namespace RRC_Sender.Services.BackGroundServices;
+namespace RRC_Sender.Services.BackgroundServices;
 
 public class KafkaOutboxSender(NpgsqlDataSource dataSource, KafkaProducer producer) : BackgroundService
 {

@@ -24,6 +24,7 @@ services:
       KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
       KAFKA_LOG_DIRS: /tmp/kraft-combined-logs
       CLUSTER_ID: MkU3OEVBNTcwNTJENDM2Qk
+      
   rrc_sender:
     image: rrc_sender
     build:
@@ -46,7 +47,7 @@ services:
   liquibase:
     image: liquibase/liquibase
     volumes:
-      - ./liquibase:/liquibase/changelog
+      - ./liquibase/:/liquibase/changelog/
     depends_on:
       - postgres
     command:
@@ -54,7 +55,8 @@ services:
         "--url=jdbc:postgresql://postgres:5432/postgres",
         "--username=postgres",
         "--password=postgres",
-        "--changeLogFile=/liquibase/changelog.xml",
+        "--searchPath=/liquibase/changelog/",
+        "--changeLogFile=changelog.xml",
         "update"
       ]
     

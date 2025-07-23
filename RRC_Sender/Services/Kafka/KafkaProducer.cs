@@ -6,9 +6,9 @@ using RRC_Sender.Settings;
 
 namespace RRC_Sender.Services.Kafka;
 
-public class KafkaProducer(IOptions<ProducerKafkaConfig> options)
+public class KafkaProducer(IOptions<ProducerKafkaSettings> options)
 {
-    private readonly ProducerKafkaConfig _producerConfig = options.Value ?? throw new ArgumentNullException(nameof(options));
+    private readonly ProducerKafkaSettings _producerConfig = options.Value ?? throw new ArgumentNullException(nameof(options));
     
     public async Task SendMessage(Order order)
     {

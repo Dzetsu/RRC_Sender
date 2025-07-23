@@ -1,6 +1,6 @@
 namespace RRC_Sender.Settings;
 
-public class ConsumerKafkaSetting
+public class ConsumerKafkaSettings
 {
     public string GroupId { get; set; }
     public string BootstrapServers { get; set; }

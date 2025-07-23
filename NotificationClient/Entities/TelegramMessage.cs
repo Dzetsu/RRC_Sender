@@ -1,4 +1,4 @@
-namespace NotificationClient;
+namespace NotificationClient.Entities;
 
 public class TelegramMessage
 {

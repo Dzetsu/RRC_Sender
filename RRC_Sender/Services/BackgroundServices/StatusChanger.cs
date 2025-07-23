@@ -5,14 +5,14 @@ using Dapper;
 using Microsoft.Extensions.Options;
 using Npgsql;
 using RRC_Sender.Entities;
-using RRC_Sender.Services.Enums;
+using RRC_Sender.Enums;
 using RRC_Sender.Settings;
 
 namespace RRC_Sender.Services.BackgroundServices;
 
-public class StatusChanger(NpgsqlDataSource dataSource, IOptions<ConsumerKafkaSetting> kafkaOptions) : BackgroundService
+public class StatusChanger(NpgsqlDataSource dataSource, IOptions<ConsumerKafkaSettings> kafkaOptions) : BackgroundService
 {
-    private readonly ConsumerKafkaSetting _consumerKafkaSetting = kafkaOptions.Value ?? throw new ArgumentNullException(nameof(kafkaOptions));
+    private readonly ConsumerKafkaSettings _consumerKafkaSetting = kafkaOptions.Value ?? throw new ArgumentNullException(nameof(kafkaOptions));
     protected override async Task ExecuteAsync(CancellationToken cancellationToken)
     {
         await using var connection = await dataSource.OpenConnectionAsync(cancellationToken);

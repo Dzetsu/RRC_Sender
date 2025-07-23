@@ -1,7 +1,6 @@
 using RRC_Sender.Repositories;
 using RRC_Sender.Services;
 using RRC_Sender.Services.BackgroundServices;
-using RRC_Sender.Services.BackGroundServices;
 using RRC_Sender.Services.Kafka;
 using RRC_Sender.Settings;
 
@@ -16,8 +15,8 @@ builder.Services.AddSingleton<IOrderService, OrderService>();
 builder.Services.AddSingleton<IOrderRepository, OrderRepository>();
 builder.Services.AddHostedService<KafkaOutboxSender>();
 builder.Services.AddHostedService<StatusChanger>();
-builder.Services.Configure<ConsumerKafkaSetting>(builder.Configuration.GetSection("ConsumerConfig"));
-builder.Services.Configure<ProducerKafkaConfig>(builder.Configuration.GetSection("ProducerConfig"));
+builder.Services.Configure<ConsumerKafkaSettings>(builder.Configuration.GetSection("ConsumerConfig"));
+builder.Services.Configure<ProducerKafkaSettings>(builder.Configuration.GetSection("ProducerConfig"));
 builder.Services.AddSingleton<KafkaProducer>();
 
 var app = builder.Build();

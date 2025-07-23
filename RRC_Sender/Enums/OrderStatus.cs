@@ -1,4 +1,4 @@
-namespace RRC_Sender.Services.Enums;
+namespace RRC_Sender.Enums;
 
 public enum OrderStatus
 {

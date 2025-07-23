@@ -1,3 +1,5 @@
+using NotificationClient.Entities;
+
 namespace NotificationClient.Services;
 
 public interface INotificationService

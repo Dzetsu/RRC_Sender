@@ -1,3 +1,4 @@
+using NotificationClient.Entities;
 using NotificationClient.Repositories;
 
 namespace NotificationClient.Services;

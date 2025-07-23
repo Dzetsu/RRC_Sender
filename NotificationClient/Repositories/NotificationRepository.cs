@@ -1,4 +1,5 @@
 using Dapper;
+using NotificationClient.Entities;
 using Npgsql;
 
 namespace NotificationClient.Repositories;

@@ -4,6 +4,7 @@ using System.Threading.Channels;
 using Confluent.Kafka;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
+using NotificationClient.Entities;
 using NotificationClient.Settings;
 using Telegram.Bot;
 using Telegram.Bot.Types.Enums;
