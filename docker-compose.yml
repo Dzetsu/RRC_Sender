@@ -36,7 +36,7 @@ services:
     container_name: rrc_postgres
     hostname: postgres
     volumes:
-      - pg_data:/var/lib/postgresql/data
+      - pg_data:/var/lib/postgresql
     ports:
       - "5432:5432"
     environment:
@@ -45,13 +45,15 @@ services:
     restart: always
     
   liquibase:
-    image: liquibase/liquibase
+    image: liquibase/liquibase:5.0.1
     volumes:
       - ./liquibase/:/liquibase/changelog/
+      - ./postgresql-42.7.8.jar:/liquibase/lib/postgresql-42.7.8.jar
     depends_on:
       - postgres
     command:
       [
+        "--classpath=/liquibase/lib/postgresql-42.7.8.jar",
         "--url=jdbc:postgresql://postgres:5432/postgres",
         "--username=postgres",
         "--password=postgres",
@@ -59,6 +61,8 @@ services:
         "--changeLogFile=changelog.xml",
         "update"
       ]
-    
+
+
+
 volumes:
   pg_data:

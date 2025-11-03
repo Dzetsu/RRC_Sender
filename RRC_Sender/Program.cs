@@ -18,7 +18,6 @@ builder.Services.AddHostedService<StatusChanger>();
 builder.Services.Configure<ConsumerKafkaSettings>(builder.Configuration.GetSection("ConsumerConfig"));
 builder.Services.Configure<ProducerKafkaSettings>(builder.Configuration.GetSection("ProducerConfig"));
 builder.Services.AddSingleton<KafkaProducer>();
-
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
