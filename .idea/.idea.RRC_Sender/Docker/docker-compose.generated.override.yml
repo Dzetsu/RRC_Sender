@@ -3,7 +3,7 @@ version: "3.9"
 services:
   rrc_sender:
     build:
-      context: "F:\\Projects\\Programs\\RRC_Sender"
+      context: "C:\\Users\\dzetsu\\RiderProjects\\RRC_Sender"
       dockerfile: "RRC_Sender/Dockerfile"
       target: "base"
     command: []
@@ -16,7 +16,7 @@ services:
     image: "rrc_sender:dev"
     ports: []
     volumes:
-    - "C:\\Users\\Dzetsu\\.nuget\\packages:/home/app/.nuget/packages"
-    - "F:\\Projects\\Programs\\RRC_Sender\\RRC_Sender:/app:rw"
-    - "F:\\Projects\\Programs\\RRC_Sender:/src:rw"
+    - "C:\\Users\\dzetsu\\RiderProjects\\RRC_Sender\\RRC_Sender:/app:rw"
+    - "C:\\Users\\dzetsu\\RiderProjects\\RRC_Sender:/src:rw"
+    - "C:\\Users\\dzetsu\\.nuget\\packages:/home/app/.nuget/packages"
     working_dir: "/app"
